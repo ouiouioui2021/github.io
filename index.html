@@ -6,7 +6,8 @@
 <title>管理システム</title>
 </head>
 
-<body><p>この文章をHTMLで表示したときに改行されるように変更してほしい。</p>
+<body>
+    <p>この文章をHTMLで表示したときに改行されるように変更してほしい。</p>
 <p>VBAのマクロ名をシンプルで分かりやすいものに変更するための提案です。これらのマクロは、保存して閉じる際、NG結果データの抽出、アクセスファイルへのaddnew、およびAddnew成功時の処理完了チェックを行います。</p>
 <p>保存して閉じるマクロ: 保存してファイルを閉じる際に実行されるマクロです。</p>
 <p>NGデータ抽出マクロ: NG結果データを抽出し、情報を配列に格納するマクロです。</p>
@@ -18,20 +19,15 @@
 <p>Addnew成功なら処理完了のチェックを入れる処理を実行するマクロ</p>
 <p>日付 ブック名 シート名 管理項目名 規格上限 規格下限 管理上限 管理下限 測定値 担当者 行番号-登録済み処理をするため</p>
 <p>配列の処理</p>
-<p>' 配列を初期化</p>
 <p>Dim arr() As String</p>
-<p>' For文のループ処理で配列に要素を追加</p>
 <p>For i = 0 To 4</p>
 <p>If isArrayEx(arr) = -1 Then</p>
-<p>' 配列が初期化されていない場合は初期化</p>
 <p>ReDim Preserve arr(0)</p>
 <p>Else</p>
-<p>' 配列が初期化されている場合は要素を追加</p>
 <p>ReDim Preserve arr(UBound(arr) + 1)</p>
 <p>End If</p>
 <p>arr(UBound(arr)) = i * 2</p>
 <p>Next</p>
-<p>' 結果</p>
 <p>arr(0) 0</p>
 <p>arr(1) 2</p>
 <p>arr(2) 4</p>
@@ -41,16 +37,13 @@
 <p>Dim conn As Object</p>
 <p>Dim rs As Object</p>
 <p>Dim strSQL As String</p>
-<p>' データベース接続文字列を設定</p>
-<p>Dim provider As String provider = "Microsoft.ACE.OLEDB.12.0"</p>
-<p>connstr = "Provider=" & provider & ";Data Source=" & dbPath</p>
-<p>Set conn = CreateObject("ADODB.Connection")</p>
+<p>Dim provider As String provider = Microsoft.ACE.OLEDB.12.0</p>
+<p>connstr = Provider= & provider & ;Data Source= & dbPath</p>
+<p>Set conn = CreateObject(ADODB.Connection)</p>
 <p>conn.Open connstr</p>
-<p>' トランザクションを開始</p>
 <p>conn.BeginTrans</p>
 <p>On Error GoTo RollbackTransaction</p>
-<p>' レコードセットを作成</p>
-<p>Set rs = CreateObject("ADODB.Recordset")</p>
+<p>Set rs = CreateObject(ADODB.Recordset)</p>
 <p>rs.Open tableName, conn, adOpenKeyset, adLockOptimistic</p>
 <p>Dim i As Long</p>
 <p>For i = LBound(dataRecords, 1) To UBound(dataRecords, 1)</p>
@@ -61,34 +54,29 @@
 <p>Next j</p>
 <p>rs.Update</p>
 <p>Next i</p>
-<p>' トランザクションをコミット</p>
 <p>conn.CommitTrans</p>
-<p>' 接続を閉じる</p>
 <p>rs.Close</p>
 <p>conn.Close</p>
 <p>Exit Sub</p>
 <p>RollbackTransaction:</p>
-<p>' エラーが発生した場合、トランザクションをロールバック</p>
 <p>conn.RollbackTrans</p>
-<p>MsgBox "エラーが発生しました。トランザクションをロールバックしました。"</p>
-<p>' エラーメッセージをテキストファイルとして保存</p>
+<p>MsgBox エラーが発生しました。トランザクションをロールバックしました。</p>
 <p>Dim errorFileName As String</p>
-<p>errorFileName = "error_" & Format(Now, "yyyyMMdd_HHmmss") & ".txt"</p>
+<p>errorFileName = error_ & Format(Now, yyyyMMdd_HHmmss) & .txt</p>
 <p>Open errorFileName For Output As #1</p>
-<p>Print #1, "エラーが発生しました。トランザクションをロールバックしました。"</p>
-<p>Print #1, "エラーのあったファイル名: " & ThisWorkbook.Name</p>
+<p>Print エラーが発生しました。トランザクションをロールバックしました。</p>
+<p>Print エラーのあったファイル名: & ThisWorkbook.Name</p>
 <p>Close #1</p>
 <p>End Sub</p>
-<p>' 使用例</p>
 <p>Dim dataRecords As Variant</p>
-<p>dataRecords = Array(Array("John", "Doe", 30, "Engineer"), _</p>
-<p>Array("Alice", "Smith", 25, "Designer"))</p>
+<p>dataRecords = Array(Array(John, Doe, 30, Engineer), _</p>
+<p>Array(Alice, Smith, 25, Designer))</p>
 <p>Dim fieldNames As Variant</p>
-<p>fieldNames = Array("FirstName", "LastName", "Age", "Occupation")</p>
+<p>fieldNames = Array(FirstName, LastName, Age, Occupation)</p>
 <p>Dim tableName As String</p>
-<p>tableName = "YourTableName"</p>
+<p>tableName = YourTableName</p>
 <p>Dim dbPath As String</p>
-<p>dbPath = "C:\path\to\your\database.accdb"</p>
+<p>dbPath = C:\path\to\your\database.accdb</p>
 <p>AddDataToTableWithTransaction tableName, fieldNames, dataRecords, dbPath</p>
 
 </body>
